@@ -55,10 +55,10 @@ public class GroupChatController {
 
     @GetMapping("/list")
     public String listGroupChats(Model model) {
-//        int onlineUsersCount = (int) userService.countOnlineUsers();
-//        model.addAttribute("onlineUsersCount", onlineUsersCount);
-//        List<GroupChat> groupChats = groupChatRepository.findAll();
-//        model.addAttribute("groupChats", groupChats);
+        int onlineUsersCount = (int) userService.countOnlineUsers();
+        model.addAttribute("onlineUsersCount", onlineUsersCount);
+        List<GroupChat> groupChats = groupChatRepository.findAll();
+        model.addAttribute("groupChats", groupChats);
         return "groupchat/list";
     }
 

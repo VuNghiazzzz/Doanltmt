@@ -44,10 +44,19 @@ public class GroupChatController {
     @Autowired
     private MemberRepository memberRepository;
 
+//    @GetMapping("/list")
+//    public String listGroupChats(Model model) {
+//        int onlineUsersCount = (int) userService.countOnlineUsers();
+//        model.addAttribute("onlineUsersCount", onlineUsersCount);
+//        List<GroupChat> groupChats = groupChatRepository.findAll();
+//        model.addAttribute("groupChats", groupChats);
+//        return "groupchat/list";
+//    }
+
     @GetMapping("/list")
     public String listGroupChats(Model model) {
-        int onlineUsersCount = (int) userService.countOnlineUsers();
-        model.addAttribute("onlineUsersCount", onlineUsersCount);
+//        int onlineUsersCount = (int) userService.countOnlineUsers();
+//        model.addAttribute("onlineUsersCount", onlineUsersCount);
         List<GroupChat> groupChats = groupChatRepository.findAll();
         model.addAttribute("groupChats", groupChats);
         return "groupchat/list";

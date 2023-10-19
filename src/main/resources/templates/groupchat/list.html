@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhom Chat</title>
+    <title>Login</title>
     <th:block th:replace="~{layout :: Link-css}"></th:block>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -82,7 +82,7 @@
     </style>
 </head>
 <body>
-<th:block th:replace="Layout :: header"></th:block>
+<th:block th:replace="~{layout :: header}"></th:block>
 <div class="container">
     <form th:action="@{/groupchat/search}" method="GET" class="mb-3">
         <div class="input-group">
@@ -115,6 +115,6 @@
     </table>
 </div>
 </script>
-<th:block th:replace="Layout :: footer"></th:block>
+<th:block th:replace="~{layout :: footer}"></th:block>
 </body>
 </html>

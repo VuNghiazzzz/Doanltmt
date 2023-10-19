@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-<th:block th:replace="Layout :: header"></th:block>
+<th:block th:replace="~{layout :: header}"></th:block>
 <div class="container">
     <h1>Chào mừng bạn đến với trang chat kết nối cộng đồng!</h1>
     <p>
@@ -65,6 +65,6 @@
         <p><strong>Instagram:</strong> <a href="https://www.instagram.com">instagram.com</a></p>
     </div>
 </div>
-<th:block th:replace="Layout :: footer"></th:block>
+<th:block th:replace="~{layout :: footer}"></th:block>
 </body>
 </html>

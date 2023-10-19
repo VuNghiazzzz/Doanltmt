@@ -57,8 +57,8 @@ public class GroupChatController {
     public String listGroupChats(Model model) {
 //        int onlineUsersCount = (int) userService.countOnlineUsers();
 //        model.addAttribute("onlineUsersCount", onlineUsersCount);
-        List<GroupChat> groupChats = groupChatRepository.findAll();
-        model.addAttribute("groupChats", groupChats);
+//        List<GroupChat> groupChats = groupChatRepository.findAll();
+//        model.addAttribute("groupChats", groupChats);
         return "groupchat/list";
     }
 

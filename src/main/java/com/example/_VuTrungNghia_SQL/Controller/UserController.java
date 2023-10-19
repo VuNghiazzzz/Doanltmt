@@ -38,8 +38,8 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model)
     {
-//        int onlineUsersCount = (int) userService.countOnlineUsers();
-//        model.addAttribute("onlineUsersCount", onlineUsersCount);
+        int onlineUsersCount = (int) userService.countOnlineUsers();
+        model.addAttribute("onlineUsersCount", onlineUsersCount);
         logInfo.info("Người dùng vừa vào trang đăng nhập");
         return "user/login";
     }

@@ -1,8 +1,6 @@
 package com.example._VuTrungNghia_SQL.Controller;
 
 
-import com.example._VuTrungNghia_SQL.entity.Book;
-import com.example._VuTrungNghia_SQL.entity.Category;
 import com.example._VuTrungNghia_SQL.entity.User;
 import com.example._VuTrungNghia_SQL.repository.IuserRepository;
 import com.example._VuTrungNghia_SQL.services.UserService;

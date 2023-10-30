@@ -438,20 +438,17 @@ public String addChat(
     public String leaveGroup(@PathVariable Long groupId, Principal principal) {
         // Lấy thông tin của nhóm chat
         GroupChat groupChat = groupChatRepository.findById(groupId).orElse(null);
-        String loggedInUsername = principal.getName();
-        User loggedInUser = userService.getUserByUsername(loggedInUsername);
 
-        if (!loggedInUserIsMemberOfGroup(groupId, loggedInUser) && !joinedUsers.contains(loggedInUser.getId())){
-            if (groupChat != null) {
-                // Xóa người dùng khỏi danh sách thành viên
+
+        if (groupChat != null) {
+            // Xóa người dùng khỏi danh sách thành viên
 //            removeUserFromGroup(groupChat, principal.getName());
-                groupChat.setNumberOfMembers(groupChat.getNumberOfMembers() - 1);
-                groupChatRepository.save(groupChat);
-                // Đánh dấu người dùng đã rời nhóm
-                joinedUsers.add(loggedInUser.getId());
-                loggedInUser.setOnlineStatus("OFFLINE");
-                userService.save(loggedInUser);
-            }
+            groupChat.setNumberOfMembers(groupChat.getNumberOfMembers() - 1);
+            groupChatRepository.save(groupChat);
+
+            User loggedInUser = userService.getUserByUsername(principal.getName());
+            loggedInUser.setOnlineStatus("OFFLINE");
+            userService.save(loggedInUser);
         }
 
         // Chuyển hướng người dùng đến trang khác sau khi rời nhóm (ví dụ: trang chính)

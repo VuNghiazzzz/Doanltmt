@@ -60,6 +60,8 @@ public class MessageController {
     @Autowired
     private MemberRepository memberRepository;
 
+    private Set<Long> joinedUsers = new HashSet<>();
+
 //    @Autowired
 //    private SimpMessagingTemplate messagingTemplate;
 
@@ -387,40 +389,69 @@ public String addChat(
 //    return "chat/messages";
 //}
         @GetMapping("/messages/{groupId}")
-        public String getMessagesForGroup(@PathVariable Long groupId, Model model) {
+        public String getMessagesForGroup(@PathVariable Long groupId, Model model,Principal principal) {
             // Lấy danh sách tin nhắn cho nhóm chat cụ thể (sử dụng groupId để xác định nhóm chat)
             List<ChatMessage> messages = messageService.getMessagesByGroupId(groupId);
 
             // Lấy thông tin của nhóm chat, bao gồm số lượng thành viên
             GroupChat groupChat = groupChatRepository.findById(groupId).orElse(null);
 
-            if (groupChat != null) {
-                // Increment the member count
-                groupChat.setNumberOfMembers(groupChat.getNumberOfMembers() + 1);
-                groupChatRepository.save(groupChat);
+            String loggedInUsername = principal.getName();
+            User loggedInUser = userService.getUserByUsername(loggedInUsername);
+            if (!loggedInUserIsMemberOfGroup(groupId, loggedInUser) && !joinedUsers.contains(loggedInUser.getId())) {
+                if (groupChat != null) {
+                    // Nếu người dùng chưa là thành viên, tăng số lượng thành viên lên +1
+                    groupChat.setNumberOfMembers(groupChat.getNumberOfMembers() + 1);
+                    groupChatRepository.save(groupChat);
+                    // Đánh dấu người dùng đã tham gia
+                    joinedUsers.add(loggedInUser.getId());
+                }
             }
 
             model.addAttribute("messages", messages);
             model.addAttribute("groupId", groupId);
             return "chat/messages";
             }
+    public boolean loggedInUserIsMemberOfGroup(Long groupId, User loggedInUser) {
+        // Truy vấn cơ sở dữ liệu để lấy nhóm chat dựa trên groupId
+        Optional<GroupChat> groupChatOptional = groupChatRepository.findById(groupId);
 
+        if (groupChatOptional.isPresent()) {
+            GroupChat groupChat = groupChatOptional.get();
+
+            // Lấy danh sách thành viên của nhóm chat
+            List<GroupMember> groupMembers = groupChat.getGroupMembers();
+
+            // Kiểm tra xem loggedInUser có trong danh sách thành viên hay không
+            boolean isMember = groupMembers.stream()
+                    .map(GroupMember::getUser)
+                    .anyMatch(member -> member.getId().equals(loggedInUser.getId()));
+
+            return isMember;
+        } else {
+            // Nhóm chat không tồn tại, do đó không thể làm kiểm tra
+            return false;
+        }
+    }
 
     @GetMapping("/leave-group/{groupId}")
     public String leaveGroup(@PathVariable Long groupId, Principal principal) {
         // Lấy thông tin của nhóm chat
         GroupChat groupChat = groupChatRepository.findById(groupId).orElse(null);
+        String loggedInUsername = principal.getName();
+        User loggedInUser = userService.getUserByUsername(loggedInUsername);
 
-
-        if (groupChat != null) {
-            // Xóa người dùng khỏi danh sách thành viên
+        if (!loggedInUserIsMemberOfGroup(groupId, loggedInUser) && !joinedUsers.contains(loggedInUser.getId())){
+            if (groupChat != null) {
+                // Xóa người dùng khỏi danh sách thành viên
 //            removeUserFromGroup(groupChat, principal.getName());
-            groupChat.setNumberOfMembers(groupChat.getNumberOfMembers() - 1);
-            groupChatRepository.save(groupChat);
-
-            User loggedInUser = userService.getUserByUsername(principal.getName());
-            loggedInUser.setOnlineStatus("OFFLINE");
-            userService.save(loggedInUser);
+                groupChat.setNumberOfMembers(groupChat.getNumberOfMembers() - 1);
+                groupChatRepository.save(groupChat);
+                // Đánh dấu người dùng đã rời nhóm
+                joinedUsers.add(loggedInUser.getId());
+                loggedInUser.setOnlineStatus("OFFLINE");
+                userService.save(loggedInUser);
+            }
         }
 
         // Chuyển hướng người dùng đến trang khác sau khi rời nhóm (ví dụ: trang chính)

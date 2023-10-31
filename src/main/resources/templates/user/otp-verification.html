@@ -58,8 +58,12 @@
         <form th:action="@{/otp-verification}" method="post">
             <div class="row justify-content-center">
                 <div>
+                    <label for="email">Địa chỉ Email:</label>
+                    <input type="email" id="email" name="email" required style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin-bottom: 10px;">
+                </div>
+                <div>
                     <label for="otpCode">Nhập mã OTP:</label>
-                    <input type="text" id="otpCode" name="otpCode" required>
+                    <input type="text" id="otpCode" name="otpCode" required style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; margin-bottom: 10px;">
                 </div>
                 <div>
                     <button type="submit">Xác thực</button>

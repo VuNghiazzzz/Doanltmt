@@ -152,10 +152,10 @@ public class UserController {
 //    }
 
     @PostMapping("/otp-verification")
-    public String verifyOTP(@RequestParam("otpCode") String otpCode, Model model) {
+    public String verifyOTP(@RequestParam("otpCode") String otpCode, Model model,@RequestParam("email") String email) {
         // Lấy danh sách người dùng từ cơ sở dữ liệu bằng email
-        String emailToSearch = "vunghia467@gmail.com";
-        List<User> users = userRepository.findByEmail(emailToSearch);
+//        String emailToSearch = "vunghia467@gmail.com";
+        List<User> users = userRepository.findByEmail(email);
 
         // Kiểm tra xem có người dùng nào khớp với mã OTP
         for (User user : users) {

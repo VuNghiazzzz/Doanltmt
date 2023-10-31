@@ -27,9 +27,9 @@ public class GroupSevice {
 //    public Long createGroupChatAndGetGroupId() {
 //        Optional<GroupChat> existingGroup = groupChatRepository.findById(groupChatRepository.findFirstGroupId());
 //        if (existingGroup.isPresent()) {
-//            // Nhóm chat đầu tiên đã tồn tại, bạn có thể lấy thông tin của nó từ existingGroup.get()
+//            // Nhóm chat đầu tiên đã tồn tại
 //            Long groupId = existingGroup.get().getId();
-//            // Gọi các hoạt động khác mà bạn muốn thực hiện trên nhóm chat này
+//            // Gọi các hoạt động khác mà bạn muốn thực hiện trên nhóm chat
 //            return groupId; // Trả về groupId ở đây
 //        }
 //        else {

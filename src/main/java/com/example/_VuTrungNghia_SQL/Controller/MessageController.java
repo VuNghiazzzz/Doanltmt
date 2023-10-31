@@ -256,15 +256,15 @@ public String addChat(
     String loggedInUsername = principal.getName();
     User loggedInUser = userService.getUserByUsername(loggedInUsername);
 
-    // Xác định người dùng cần chặn
+    // Xác định trạng thái người dùng
     // ...
     loggedInUser.setOnlineStatus("ONLINE");
     userService.save(loggedInUser);
 
-    // Tạo đối tượng tin nhắn và đặt người gửi
+
     Long groupId = 1L; // Thay đổi groupId theo nhu cầu của bạn
 
-    // Xử lý file đính kèm (nếu có)
+    // Xử lý file đính kèm
     byte[] attachedFileData = null;
     String attachedFileName = null;
 

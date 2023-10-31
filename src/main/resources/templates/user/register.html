@@ -6,6 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <th:block th:replace="~{layout :: Link-css}"></th:block>
+    <style>
+     body {
+            background-image: url('https://cdn.sforum.vn/sforum/wp-content/uploads/2023/06/tai-hinh-nen-dep-nhat-the-gioi-57.jpg'); /* Replace 'your-image.jpg' with your image file */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .container input[type="text"],
+    .container input[type="email"],
+    .container input[type="password"],
+    .container select {
+        border-radius: 5px; /* Rounded corners for input fields and select */
+        padding: 10px;
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    .container select {
+        width: 100%; /* Full-width select */
+    }
+
+    .container button {
+        border-radius: 5px; /* Rounded corners for the button */
+        padding: 10px 20px;
+        margin-top: 10px;
+    }
+
+    .form-action {
+        margin-top: 20px;
+    }
+    </style>
 </head>
 <body>
 <th:block th:replace="~{layout :: header}"></th:block>
